@@ -11,11 +11,20 @@ function App() {
     name: "eric",
     age: 25
   }
+  const addNewToDo = (name) => {
+    console.log(`Call me ${name}`);
+  }
+
+  addNewToDo();
   return (
     <div className="todo-container">
       <div className="todo-title">Todo List</div>
-      <TodoNew />
-      <TodoData name={hoidanit} age={age} data={data} ></TodoData>
+      <TodoNew addNewToDo={addNewToDo} />
+      <TodoData name={hoidanit}
+        age={age}
+        data={data}
+      >
+      </TodoData>
       <div className='todo-img'>
         <img src={reactLogo} className='logo' />
       </div>
