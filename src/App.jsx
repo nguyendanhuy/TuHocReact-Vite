@@ -4,7 +4,9 @@ import TodoNew from './components/Todo/TodoNew'
 import TodoData from './components/Todo/TodoData'
 import reactLogo from './assets/react.svg'
 function App() {
-  const [count, setCount] = useState(0)
+  const [toDos, setToDos] = useState(
+    [{ id: 1, name: "Learning react" },
+    { id: 2, name: "Learning ts" }]);
   const hoidanit = "eric nguyen";
   const age = 25;
   const data = {
@@ -20,9 +22,11 @@ function App() {
     <div className="todo-container">
       <div className="todo-title">Todo List</div>
       <TodoNew addNewToDo={addNewToDo} />
-      <TodoData name={hoidanit}
+      <TodoData
+        name={hoidanit}
         age={age}
         data={data}
+        toDoList={toDos}
       >
       </TodoData>
       <div className='todo-img'>
