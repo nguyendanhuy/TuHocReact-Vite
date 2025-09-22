@@ -5,6 +5,7 @@ const Header = () => {
     return (
         // react không dùng tag a để chuyển hướng mà dùng tag link.
         //Navlink khac voi link o chỗ tự động thêm class active dựa vào page đã bấm.
+        //lưu ý rằng NavLink chỉ tự động thêm class vào thôi chứ ko tự động css cho class đó.
         <ul>
             <li><NavLink to="/">Home</NavLink></li>
             <li><NavLink to="/User">User</NavLink></li>
