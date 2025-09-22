@@ -11,10 +11,12 @@ import UserPage from './Pages/user.jsx';
 import ProductPage from './Pages/product.jsx';
 import './Styles/Global.css'
 import TodoApp from './components/Todo/TodoApp.jsx';
+import ErrorPage from './Pages/error.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
