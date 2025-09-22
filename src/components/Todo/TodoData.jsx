@@ -1,9 +1,12 @@
 const TodoData = (props) => {
     // let name = props.name;
 
-    const { name: fullname, age, data } = props;
-    const { toDoList } = props;
+    // const { name: fullname, age, data } = props;
+    const { toDoList, deleteTodo } = props;
     // console.log(">>> check props: ", props);
+    const handleClick = (id) => {
+        deleteTodo(id);
+    };
     return (
         <div className="todo-data">
             {toDoList.map((item, index) => {
@@ -12,11 +15,13 @@ const TodoData = (props) => {
                 return (
                     <div style={{ display: "flex", justifyContent: "space-between" }} key={item.id}>
                         <div>{item.name}</div>
-                        <button>Delete</button>
+                        <button style={{ cursor: "pointer" }} onClick={() => {
+                            handleClick(item.id);
+                        }} >Delete</button>
                     </div>
                 )
             })}
-        </div>
+        </div >
     );
 }
 export default TodoData

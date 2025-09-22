@@ -28,6 +28,12 @@ function App() {
     //Khong nen tac dong truc tiep len state
     setToDos([...toDos, newToDo]);
   }
+  const deleteTodo = (id) => {
+    console.log("check id", id);
+    //dùng {} trong arrow function thi phải có return 
+    const newToDo = toDos.filter((value) => { return value.id !== id })
+    setToDos(newToDo);
+  }
   return (
     <div className="todo-container">
       <div className="todo-title">Todo List</div>
@@ -45,7 +51,9 @@ function App() {
       } */}
       {
         toDos.length > 0 ?
-          <TodoData toDoList={toDos} />
+          <TodoData
+            toDoList={toDos}
+            deleteTodo={deleteTodo} />
           :
           <div className='todo-img'>
             <img src={reactLogo} className='logo' />
