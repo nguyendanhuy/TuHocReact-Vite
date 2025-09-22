@@ -18,8 +18,6 @@ function App() {
   const randomIntFromInterval = (min, max) => { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
-
-
   const addNewToDo = (name) => {
     const newToDo = {
       id: randomIntFromInterval(1, 1000000),
@@ -37,8 +35,8 @@ function App() {
   return (
     <div className="todo-container">
       <div className="todo-title">Todo List</div>
-      <TodoNew addNewToDo={addNewToDo} />
 
+      <TodoNew addNewToDo={addNewToDo} />
       {/* Dau && o day khong co nghia la and mà mang nghĩa là if else trong jsx 
       Cách dùng: điều kiện && [code nếu đk đúng]*/}
 
@@ -62,5 +60,4 @@ function App() {
     </div >
   )
 }
-
 export default App
