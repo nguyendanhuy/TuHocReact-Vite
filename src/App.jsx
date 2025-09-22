@@ -1,8 +1,11 @@
 import { useState } from 'react'
+//Khi import css chỉ cần import trực tiếp như thế này là được.
 import './components/Todo/Todo.css'
 import TodoNew from './components/Todo/TodoNew'
 import TodoData from './components/Todo/TodoData'
 import reactLogo from './assets/react.svg'
+import Header from './components/Layout/header'
+import Footer from './components/Layout/footer'
 function App() {
   const [toDos, setToDos] = useState([
     // { id: 1, name: "Learning react" },
@@ -33,31 +36,35 @@ function App() {
     setToDos(newToDo);
   }
   return (
-    <div className="todo-container">
-      <div className="todo-title">Todo List</div>
+    <>
+      <Header />
+      <div className="todo-container">
+        <div className="todo-title">Todo List</div>
 
-      <TodoNew addNewToDo={addNewToDo} />
-      {/* Dau && o day khong co nghia la and mà mang nghĩa là if else trong jsx 
+        <TodoNew addNewToDo={addNewToDo} />
+        {/* Dau && o day khong co nghia la and mà mang nghĩa là if else trong jsx 
       Cách dùng: điều kiện && [code nếu đk đúng]*/}
 
-      {/* {toDos.length > 0 && <TodoData toDoList={toDos} />}
+        {/* {toDos.length > 0 && <TodoData toDoList={toDos} />}
 
       {toDos.length === 0 ?
         <div className='todo-img'>
           <img src={reactLogo} className='logo' />
         </div> : <div></div>
       } */}
-      {
-        toDos.length > 0 ?
-          <TodoData
-            toDoList={toDos}
-            deleteTodo={deleteTodo} />
-          :
-          <div className='todo-img'>
-            <img src={reactLogo} className='logo' />
-          </div>
-      }
-    </div >
+        {
+          toDos.length > 0 ?
+            <TodoData
+              toDoList={toDos}
+              deleteTodo={deleteTodo} />
+            :
+            <div className='todo-img'>
+              <img src={reactLogo} className='logo' />
+            </div>
+        }
+      </div >
+      <Footer />
+    </>
   )
 }
 export default App
