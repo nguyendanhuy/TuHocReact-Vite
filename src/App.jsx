@@ -6,6 +6,7 @@ import TodoData from './components/Todo/TodoData'
 import reactLogo from './assets/react.svg'
 import Header from './components/Layout/header'
 import Footer from './components/Layout/footer'
+import { Outlet } from 'react-router-dom'
 function App() {
   const [toDos, setToDos] = useState([
     // { id: 1, name: "Learning react" },
@@ -63,6 +64,7 @@ function App() {
             </div>
         }
       </div >
+      <Outlet />
       <Footer />
     </>
   )
