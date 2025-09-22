@@ -4,9 +4,10 @@ import TodoNew from './components/Todo/TodoNew'
 import TodoData from './components/Todo/TodoData'
 import reactLogo from './assets/react.svg'
 function App() {
-  const [toDos, setToDos] = useState(
-    [{ id: 1, name: "Learning react" },
-    { id: 2, name: "Learning ts" }]);
+  const [toDos, setToDos] = useState([
+    // { id: 1, name: "Learning react" },
+    // { id: 2, name: "Learning ts" }
+  ]);
 
   const hoidanit = "eric nguyen";
   const age = 25;
@@ -31,17 +32,26 @@ function App() {
     <div className="todo-container">
       <div className="todo-title">Todo List</div>
       <TodoNew addNewToDo={addNewToDo} />
-      <TodoData
-        name={hoidanit}
-        age={age}
-        data={data}
-        toDoList={toDos}
-      >
-      </TodoData>
-      <div className='todo-img'>
-        <img src={reactLogo} className='logo' />
-      </div>
-    </div>
+
+      {/* Dau && o day khong co nghia la and mà mang nghĩa là if else trong jsx 
+      Cách dùng: điều kiện && [code nếu đk đúng]*/}
+
+      {/* {toDos.length > 0 && <TodoData toDoList={toDos} />}
+
+      {toDos.length === 0 ?
+        <div className='todo-img'>
+          <img src={reactLogo} className='logo' />
+        </div> : <div></div>
+      } */}
+      {
+        toDos.length > 0 ?
+          <TodoData toDoList={toDos} />
+          :
+          <div className='todo-img'>
+            <img src={reactLogo} className='logo' />
+          </div>
+      }
+    </div >
   )
 }
 
