@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import UpdateUserModal from './UpdateUserModal';
+import ViewUserDetail from './ViewUserDetail';
 // const data = [
 //     {
 //         key: '1',
@@ -32,13 +33,19 @@ const UserTable = (props) => {
     const [isModalUpdateOpen, setisModalUpdateOpen] = useState(false);
     const { dataUser, loadUser } = props
     const [dataUpdate, setdataUpdate] = useState(null);
+    const [dataDetail, setdataDetail] = useState(null);
+    const [isDetailOpen, setisDetailOpen] = useState(false);
     const columns = [
         {
             title: 'Id',
             dataIndex: '_id',
             render: (_, record) => {
                 return (
-                    <a href='#'>{record._id}</a>
+                    <a onClick={() => {
+                        setisDetailOpen(true);
+                        setdataDetail(record);
+                    }
+                    }> {record._id}</a>
                 )
             },
         },
@@ -74,6 +81,12 @@ const UserTable = (props) => {
                 dataUpdate={dataUpdate}
                 setdataUpdate={setdataUpdate}
                 loadUser={loadUser}
+            />
+            <ViewUserDetail
+                isDetailOpen={isDetailOpen}
+                setisDetailOpen={setisDetailOpen}
+                dataDetail={dataDetail}
+                setdataDetail={setdataDetail}
             />
         </>
     )
