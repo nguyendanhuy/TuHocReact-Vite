@@ -25,7 +25,9 @@ import { useState } from 'react';
 //         tags: ['cool', 'teacher'],
 //     },
 // ];
-const UserTable = () => {
+const UserTable = (props) => {
+
+    const { dataUser } = props
     const columns = [
         {
             title: 'Id',
@@ -40,18 +42,6 @@ const UserTable = () => {
             dataIndex: 'email',
         },
     ];
-    const [dataUser, setDataUser] = useState([]);
-    //khi khai bao useEffect thì nên khai báo phía dưới của State
-    //UseEffect chỉ chạy 1 lần khi truyền vào array rỗng
-    useEffect(() => {
-        loadUser();
-    }, []);
-    const loadUser = async () => {
-        console.log(">>>>Run load user");
-        const userList = await fetchAllUsersApi();
-        console.log(">>>>End load user", userList.data);
-        setDataUser(userList.data);
-    }
     return <Table columns={columns} dataSource={dataUser} rowKey={"_id"} />;
 }
 export default UserTable;

@@ -4,7 +4,8 @@ import { Button, Flex } from 'antd';
 import axios from 'axios';
 import { createUserApi } from '../../Services/api.service';
 import Modal from 'antd/es/modal/Modal';
-const UserForm = () => {
+const UserForm = (props) => {
+    const { loadUser } = props;
     const [fullName, setfullName] = useState("");
     const [email, setEmail] = useState("");
     const [passWord, setPassWord] = useState("");
@@ -17,13 +18,21 @@ const UserForm = () => {
                 message: 'User created successfully',
                 description: "Tạo user thành công",
             });
-            setIsModalOpen(false);
+            resetAndClose();
+            loadUser();
         } else {
             notification.error({
                 message: 'Error',
                 description: JSON.stringify(res.message),
             });
         }
+    }
+    const resetAndClose = () => {
+        setIsModalOpen(false);
+        setfullName("");
+        setEmail("");
+        setPassWord("");
+        setPhoneNumber("");
     }
 
     return (
@@ -37,7 +46,7 @@ const UserForm = () => {
                 closable={{ 'aria-label': 'Custom Close Button' }}
                 open={isModalOpen}
                 onOk={() => { handleSubmitBtn() }}
-                onCancel={() => setIsModalOpen(false)}
+                onCancel={() => resetAndClose()}
                 maskClosable={false}
                 okText={"Create"}
             >
