@@ -29,8 +29,9 @@ import UpdateUserModal from './UpdateUserModal';
 //     },
 // ];
 const UserTable = (props) => {
-
-    const { dataUser } = props
+    const [isModalUpdateOpen, setisModalUpdateOpen] = useState(false);
+    const { dataUser, loadUser } = props
+    const [dataUpdate, setdataUpdate] = useState(null);
     const columns = [
         {
             title: 'Id',
@@ -54,16 +55,26 @@ const UserTable = (props) => {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle" style={{ display: "flex" }}>
-                    <Link><EditOutlined style={{ cursor: "pointer", color: "blue" }} /></Link>
-                    <Link><DeleteOutlined style={{ cursor: "pointer", color: "red" }} /></Link>
+                    <EditOutlined onClick={() => {
+                        setisModalUpdateOpen(true);
+                        setdataUpdate(record);
+                    }} style={{ cursor: "pointer", color: "blue" }} />
+                    <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
                 </Space>
             ),
         },
     ];
+    console.log(">>>Check dataUpdate", dataUpdate);
     return (
         <>
             <Table columns={columns} dataSource={dataUser} rowKey={"_id"} />
-            <UpdateUserModal />
+            <UpdateUserModal
+                isModalUpdateOpen={isModalUpdateOpen}
+                setisModalUpdateOpen={setisModalUpdateOpen}
+                dataUpdate={dataUpdate}
+                setdataUpdate={setdataUpdate}
+                loadUser={loadUser}
+            />
         </>
     )
 }

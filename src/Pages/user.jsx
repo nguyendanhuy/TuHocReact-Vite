@@ -12,7 +12,6 @@ const UserPage = () => {
     }, []);
     const loadUser = async () => {
         const userList = await fetchAllUsersApi();
-        console.log(">>>>End load user", userList.data);
         setDataUser(userList.data);
     }
     //lift-up-state
@@ -21,7 +20,7 @@ const UserPage = () => {
             User table
             <div>
                 <UserForm loadUser={loadUser} />
-                <UserTable dataUser={dataUser} />
+                <UserTable dataUser={dataUser} loadUser={loadUser} />
             </div>
         </div>
     )

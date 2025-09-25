@@ -1,24 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input, notification } from 'antd';
 import { Button, Flex } from 'antd';
 import axios from 'axios';
 import Modal from 'antd/es/modal/Modal';
-import { createUserApi } from '../../Services/api.service';
-const UpdateUserModal = () => {
+import { createUserApi, updateUserApi } from '../../Services/api.service';
+const UpdateUserModal = (props) => {
+    const { isModalUpdateOpen, setisModalUpdateOpen, dataUpdate, setdataUpdate, loadUser } = props;
     const [fullName, setfullName] = useState("");
-    const [email, setEmail] = useState("");
-    const [passWord, setPassWord] = useState("");
+    const [id, setId] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    useEffect(() => {
+        if (dataUpdate) {
+            setfullName(dataUpdate.fullName);
+            setId(dataUpdate._id);
+            setPhoneNumber(dataUpdate.phone);
+        }
+    }, [dataUpdate])
     const handleSubmitBtn = async () => {
-        const res = await createUserApi(fullName, email, passWord, phoneNumber);
+        const res = await updateUserApi(id, fullName, phoneNumber);
         if (res.data) {
             notification.success({
-                message: 'User created successfully',
-                description: "Tạo user thành công",
+                message: 'User update successfully',
+                description: "Chập nhận user thành công",
             });
             resetAndClose();
-            // loadUser();
+            loadUser();
         } else {
             notification.error({
                 message: 'Error',
@@ -26,46 +32,45 @@ const UpdateUserModal = () => {
             });
         }
     }
+    console.log(">>>Check dataUpdate useEffect123", dataUpdate);
+
+
     const resetAndClose = () => {
-        setIsModalOpen(false);
+        setisModalUpdateOpen(false);
         setfullName("");
-        setEmail("");
-        setPassWord("");
+        setId("");
         setPhoneNumber("");
+        setdataUpdate(null);
     }
     return (
         <div >
             <div style={{ display: "flex", justifyContent: "space-between", }}>
-                <Button onClick={() => { setIsModalOpen(true) }} type="primary">Create user</Button>
+                <Button onClick={() => { setisModalUpdateOpen(true) }} type="primary">Create user</Button>
             </div>
             <Modal
                 title="Update a user"
-                closable={{ 'aria-label': 'Custom Close Button' }}
-                open={isModalOpen}
+                open={isModalUpdateOpen}
                 onOk={() => { handleSubmitBtn() }}
-                onCancel={() => resetAndClose()}
+                onCancel={() => {
+                    resetAndClose();
+                }}
                 maskClosable={false}
                 okText={"Save"}
             >
                 <div style={{ width: '100%', display: "flex", gap: "10px", flexWrap: "wrap", flexDirection: "column" }}>
+                    <div>
+                        <span>id</span>
+                        <Input
+                            disabled
+                            value={id}
+                            onChange={(e) => setId(e.target.value)} />
+                    </div>
                     <div>
                         <span>FullName</span>
                         <Input
                             value={fullName}
                             onChange={(e) => setfullName(e.target.value)}
                         />
-                    </div>
-                    <div>
-                        <span>Email</span>
-                        <Input
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)} />
-                    </div>
-                    <div>
-                        <span>Password</span>
-                        <Input.Password
-                            value={passWord}
-                            onChange={(e) => setPassWord(e.target.value)} />
                     </div>
                     <div>
                         <span>Phone number</span>
