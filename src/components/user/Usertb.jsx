@@ -2,6 +2,9 @@ import { Table, Tag, Space } from 'antd';
 import React, { useEffect } from 'react';
 import { fetchAllUsersApi } from '../../Services/api.service';
 import { useState } from 'react';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
+import UpdateUserModal from './UpdateUserModal';
 // const data = [
 //     {
 //         key: '1',
@@ -32,6 +35,11 @@ const UserTable = (props) => {
         {
             title: 'Id',
             dataIndex: '_id',
+            render: (_, record) => {
+                return (
+                    <a href='#'>{record._id}</a>
+                )
+            },
         },
         {
             title: 'fullName',
@@ -41,7 +49,22 @@ const UserTable = (props) => {
             title: 'email',
             dataIndex: 'email',
         },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                <Space size="middle" style={{ display: "flex" }}>
+                    <Link><EditOutlined style={{ cursor: "pointer", color: "blue" }} /></Link>
+                    <Link><DeleteOutlined style={{ cursor: "pointer", color: "red" }} /></Link>
+                </Space>
+            ),
+        },
     ];
-    return <Table columns={columns} dataSource={dataUser} rowKey={"_id"} />;
+    return (
+        <>
+            <Table columns={columns} dataSource={dataUser} rowKey={"_id"} />
+            <UpdateUserModal />
+        </>
+    )
 }
 export default UserTable;

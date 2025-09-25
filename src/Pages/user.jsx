@@ -17,7 +17,7 @@ const UserPage = () => {
     }
     //lift-up-state
     return (
-        <div>
+        <div style={{ padding: "20px" }}>
             User table
             <div>
                 <UserForm loadUser={loadUser} />
