@@ -40,10 +40,7 @@ const UserTable = () => {
             dataIndex: 'email',
         },
     ];
-    const [dataUser, setDataUser] = useState([
-        { name: 'John Brown', age: 32, address: 'New York No. 1 Lake Park' },
-        { name: 'James', age: 23, address: 'New York No. 2 Lake Park' },
-    ]);
+    const [dataUser, setDataUser] = useState([]);
     //khi khai bao useEffect thì nên khai báo phía dưới của State
     //UseEffect chỉ chạy 1 lần khi truyền vào array rỗng
     useEffect(() => {
