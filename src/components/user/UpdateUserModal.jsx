@@ -15,6 +15,7 @@ const UpdateUserModal = (props) => {
             setPhoneNumber(dataUpdate.phone);
         }
     }, [dataUpdate])
+
     const handleSubmitBtn = async () => {
         const res = await updateUserApi(id, fullName, phoneNumber);
         if (res.data) {
