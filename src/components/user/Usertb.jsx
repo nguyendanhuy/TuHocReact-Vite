@@ -1,9 +1,7 @@
-import { Table, Tag, Space, Popconfirm, notification } from 'antd';
-import React, { useEffect } from 'react';
-import { deletedUserApi, fetchAllUsersApi } from '../../Services/api.service';
+import { Table, Space, Popconfirm, notification, message } from 'antd';
+import { deletedUserApi } from '../../Services/api.service';
 import { useState } from 'react';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
 import UpdateUserModal from './UpdateUserModal';
 import ViewUserDetail from './ViewUserDetail';
 // const data = [

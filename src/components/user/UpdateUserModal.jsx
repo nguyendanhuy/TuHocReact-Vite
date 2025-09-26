@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input, notification } from 'antd';
-import { Button, Flex } from 'antd';
-import axios from 'axios';
+import { Button, } from 'antd';
 import Modal from 'antd/es/modal/Modal';
-import { createUserApi, updateUserApi } from '../../Services/api.service';
+import { updateUserApi } from '../../Services/api.service';
 const UpdateUserModal = (props) => {
     const { isModalUpdateOpen, setisModalUpdateOpen, dataUpdate, setdataUpdate, loadUser } = props;
     const [fullName, setfullName] = useState("");

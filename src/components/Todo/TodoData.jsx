@@ -9,7 +9,7 @@ const TodoData = (props) => {
     };
     return (
         <div className="todo-data">
-            {toDoList.map((item, index) => {
+            {toDoList.map((item) => {
                 // console.log(item, index)
                 //Nen su dung key tu back end hoac tu generate tu truoc
                 return (
