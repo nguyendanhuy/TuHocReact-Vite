@@ -1,6 +1,6 @@
-import { Table, Tag, Space } from 'antd';
+import { Table, Tag, Space, Popconfirm, notification } from 'antd';
 import React, { useEffect } from 'react';
-import { fetchAllUsersApi } from '../../Services/api.service';
+import { deletedUserApi, fetchAllUsersApi } from '../../Services/api.service';
 import { useState } from 'react';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -29,12 +29,33 @@ import ViewUserDetail from './ViewUserDetail';
 //         tags: ['cool', 'teacher'],
 //     },
 // ];
+
+
 const UserTable = (props) => {
     const [isModalUpdateOpen, setisModalUpdateOpen] = useState(false);
     const { dataUser, loadUser } = props
     const [dataUpdate, setdataUpdate] = useState(null);
     const [dataDetail, setdataDetail] = useState(null);
     const [isDetailOpen, setisDetailOpen] = useState(false);
+    const handleDeleteUser = async (_id) => {
+        const res = await deletedUserApi(_id);
+        if (res.data) {
+            notification.success({
+                message: 'Đã xóa user thành công',
+                description: "Yahooo",
+            });
+            loadUser();
+        } else {
+            notification.error({
+                message: 'Error',
+                description: JSON.stringify(res.message),
+            });
+        }
+    }
+    const cancel = e => {
+        console.log(e);
+        message.error('Click on No');
+    };
     const columns = [
         {
             title: 'Id',
@@ -66,7 +87,16 @@ const UserTable = (props) => {
                         setisModalUpdateOpen(true);
                         setdataUpdate(record);
                     }} style={{ cursor: "pointer", color: "blue" }} />
-                    <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
+                    <Popconfirm
+                        title="Delete the task"
+                        description="Are you sure to delete this task?"
+                        onConfirm={() => handleDeleteUser(record._id)}
+                        onCancel={cancel}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
+                    </Popconfirm>
                 </Space>
             ),
         },
