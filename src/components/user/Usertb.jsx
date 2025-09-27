@@ -31,7 +31,7 @@ import ViewUserDetail from './ViewUserDetail';
 
 const UserTable = (props) => {
     const [isModalUpdateOpen, setisModalUpdateOpen] = useState(false);
-    const { dataUser, loadUser } = props
+    const { dataUser, loadUser, currentPage, pageSize, total, setCurrentPage, setPageSize, setTotal } = props
     const [dataUpdate, setdataUpdate] = useState(null);
     const [dataDetail, setdataDetail] = useState(null);
     const [isDetailOpen, setisDetailOpen] = useState(false);
@@ -50,11 +50,26 @@ const UserTable = (props) => {
             });
         }
     }
+    const Onchange = (pagination, filters, sorter, extra) => {
+        setCurrentPage(pagination.current);
+        setPageSize(pagination.pageSize);
+        setTotal(pagination.total);
+    }
     const cancel = e => {
         console.log(e);
         message.error('Click on No');
     };
     const columns = [
+        {
+            title: 'Stt',
+            render: (_, record, index) => {
+                return (
+                    <>
+                        {index + 1}
+                    </>
+                );
+            }
+        },
         {
             title: 'Id',
             dataIndex: '_id',
@@ -102,7 +117,20 @@ const UserTable = (props) => {
     console.log(">>>Check dataUpdate", dataUpdate);
     return (
         <>
-            <Table columns={columns} dataSource={dataUser} rowKey={"_id"} />
+            <Table
+                columns={columns}
+                dataSource={dataUser}
+                rowKey={(record) => record._id}
+                pagination={
+                    {
+                        current: currentPage,
+                        pageSize: pageSize,
+                        showSizeChanger: false,
+                        total: total,
+                        showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} trên {total} rows</div>) }
+                    }}
+                onChange={Onchange}
+            />
             <UpdateUserModal
                 isModalUpdateOpen={isModalUpdateOpen}
                 setisModalUpdateOpen={setisModalUpdateOpen}
