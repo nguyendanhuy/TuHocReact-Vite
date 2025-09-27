@@ -31,7 +31,7 @@ import ViewUserDetail from './ViewUserDetail';
 
 const UserTable = (props) => {
     const [isModalUpdateOpen, setisModalUpdateOpen] = useState(false);
-    const { dataUser, loadUser, currentPage, pageSize, total, setCurrentPage, setPageSize, setTotal } = props
+    const { dataUser, loadUser, currentPage, pageSize, total, setCurrentPage, setPageSize } = props
     const [dataUpdate, setdataUpdate] = useState(null);
     const [dataDetail, setdataDetail] = useState(null);
     const [isDetailOpen, setisDetailOpen] = useState(false);
@@ -51,12 +51,12 @@ const UserTable = (props) => {
         }
     }
     const Onchange = (pagination, filters, sorter, extra) => {
-        setCurrentPage(pagination.current);
-        setPageSize(pagination.pageSize);
-        setTotal(pagination.total);
+        if (pagination.current !== +currentPage) {
+            // dùng dấu + để chuyển string sang number (tự động)
+            setCurrentPage(+pagination.current);
+        }
     }
     const cancel = e => {
-        console.log(e);
         message.error('Click on No');
     };
     const columns = [
@@ -65,7 +65,7 @@ const UserTable = (props) => {
             render: (_, record, index) => {
                 return (
                     <>
-                        {index + 1}
+                        {(index + 1) + (currentPage - 1) * pageSize}
                     </>
                 );
             }
@@ -114,7 +114,6 @@ const UserTable = (props) => {
             ),
         },
     ];
-    console.log(">>>Check dataUpdate", dataUpdate);
     return (
         <>
             <Table

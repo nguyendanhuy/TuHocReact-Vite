@@ -12,7 +12,7 @@ const UserPage = () => {
     //UseEffect chỉ chạy 1 lần khi truyền vào array rỗng
     useEffect(() => {
         loadUser();
-    }, []);
+    }, [currentPage]);
     const loadUser = async () => {
         const userList = await fetchAllUsersApi(currentPage, pageSize);
         if (userList.data) {
@@ -34,7 +34,6 @@ const UserPage = () => {
                     total={total}
                     setCurrentPage={setCurrentPage}
                     setPageSize={setPageSize}
-                    setTotal={setTotal}
                     dataUser={dataUser}
                     loadUser={loadUser} />
             </div>

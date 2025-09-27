@@ -16,7 +16,6 @@ instance.interceptors.request.use(function (config) {
 instance.interceptors.response.use(function onFulfilled(response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    console.log(">>>>check inside response", response);
     if(response.data && response.data.data){
         return response.data;
     }

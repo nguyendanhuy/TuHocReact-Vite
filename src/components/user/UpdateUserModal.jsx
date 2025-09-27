@@ -32,7 +32,6 @@ const UpdateUserModal = (props) => {
             });
         }
     }
-    console.log(">>>Check dataUpdate useEffect123", dataUpdate);
 
 
     const resetAndClose = () => {
