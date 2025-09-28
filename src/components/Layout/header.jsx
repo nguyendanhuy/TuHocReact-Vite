@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom';
-import { AppstoreOutlined, BookOutlined, HomeOutlined, MailOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { AliwangwangOutlined, AppstoreOutlined, BookOutlined, HomeOutlined, MailOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/auth.context';
@@ -27,23 +27,30 @@ const Header = () => {
             key: 'product',
             icon: <BookOutlined />,
         },
+        //Cách viết câu điều kiện trong mảng
+        ...(!user.id ?
+            [{
+                label: <Link to="/login">Login</Link>,
+                key: 'login',
+                icon: <MailOutlined />,
+            }] : []),
         {
-            label: 'Cài đặt',
-            key: 'setting',
-            icon: <SettingOutlined />,
-            children: [
-                {
-                    label: <Link to="/login">Login</Link>,
-                    key: 'login',
-                    icon: <MailOutlined />,
-                },
-                {
-                    label: <Link to="/register">Register</Link>,
-                    key: 'register',
-                    icon: <AppstoreOutlined />,
-                }
-            ]
-        }
+            label: <Link to="/register">Register</Link>,
+            key: 'register',
+            icon: <AppstoreOutlined />,
+        },
+        ...(user.id ?
+            [{
+                label: 'Welcome ' + (user?.fullName || 'Guest'),
+                key: 'setting',
+                icon: <AliwangwangOutlined />,
+                children: [
+                    {
+                        label: 'Đăng xuất',
+                        key: 'logout',
+                    }
+                ]
+            }] : []),
     ];
     return (
         // react không dùng tag a để chuyển hướng mà dùng tag link.

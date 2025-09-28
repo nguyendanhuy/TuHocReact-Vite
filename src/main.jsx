@@ -13,6 +13,7 @@ import './Styles/Global.css'
 import TodoApp from './components/Todo/TodoApp.jsx';
 import ErrorPage from './Pages/error.jsx';
 import { AuthWrapper } from './context/auth.context.jsx';
+import PrivateRoute from './Pages/priavte.routin.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -29,7 +30,10 @@ const router = createBrowserRouter([
       },
       {
         path: "/Product",
-        element: <ProductPage />
+        element:
+          <PrivateRoute>
+            <ProductPage />
+          </PrivateRoute>
       },
     ]
   },
@@ -45,6 +49,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    {/* Khi code full tag như bên dưới thì cái kẹp giữa sẽ trở thành children của component nằm ngoài*/}
     <AuthWrapper>
       <RouterProvider router={router} />
     </AuthWrapper>
