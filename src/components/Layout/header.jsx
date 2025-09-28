@@ -1,10 +1,13 @@
 import { Link, NavLink } from 'react-router-dom';
 import { AppstoreOutlined, BookOutlined, HomeOutlined, MailOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../../context/auth.context';
 
 const Header = () => {
+    const { user } = useContext(AuthContext);
     const [current, setCurrent] = useState('home');
+    console.log(user);
     const onClick = e => {
         setCurrent(e.key);
     }
@@ -24,6 +27,23 @@ const Header = () => {
             key: 'product',
             icon: <BookOutlined />,
         },
+        {
+            label: 'Cài đặt',
+            key: 'setting',
+            icon: <SettingOutlined />,
+            children: [
+                {
+                    label: <Link to="/login">Login</Link>,
+                    key: 'login',
+                    icon: <MailOutlined />,
+                },
+                {
+                    label: <Link to="/register">Register</Link>,
+                    key: 'register',
+                    icon: <AppstoreOutlined />,
+                }
+            ]
+        }
     ];
     return (
         // react không dùng tag a để chuyển hướng mà dùng tag link.
