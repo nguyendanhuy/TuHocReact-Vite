@@ -17,7 +17,6 @@ const UserPage = () => {
         const userList = await fetchAllUsersApi(currentPage, pageSize);
         if (userList.data) {
             setDataUser(userList.data.result);
-            setCurrentPage(userList.data.meta.current);
             setPageSize(userList.data.meta.pageSize);
             setTotal(userList.data.meta.total);
         }

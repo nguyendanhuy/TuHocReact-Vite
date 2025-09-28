@@ -1,9 +1,24 @@
-import { Input, Button, Form } from "antd"
+import { Input, Button, Form, notification } from "antd"
+import { registerUserApi } from "../Services/api.service";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
     const [form1, form2] = Form.useForm();
-    const onFinish = values => {
-        console.log('Success:', values);
+    const navigate = useNavigate();
+    const onFinish = async values => {
+        const res = await registerUserApi(values.username, values.email, values.password, values.phonenumber);
+        if (res.data) {
+            notification.success({
+                message: 'Register successfully',
+                description: "đăng ký thành công",
+            });
+            navigate("/login");
+        } else {
+            notification.error({
+                message: 'Error',
+                description: JSON.stringify(res.message),
+            });
+        }
     };
     const onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
@@ -27,28 +42,45 @@ const RegisterPage = () => {
                 <Form.Item
                     label="Username"
                     name="username"
-                // rules={[{ required: true, message: 'Please input your username!' }]}
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your username!'
+                        }
+                    ]}
                 >
                     <Input />
                 </Form.Item>
                 <Form.Item
                     label="Email"
                     name="email"
-                // rules={[{ required: true, message: 'Please input your username!' }]}
+                    rules={[
+                        { required: true, message: 'Please input your email!' },
+                        { type: 'email', message: 'The input is not valid E-mail!' }
+                    ]}
                 >
                     <Input />
                 </Form.Item>
                 <Form.Item
                     label="Password"
                     name="password"
-                // rules={[{ required: true, message: 'Please input your username!' }]}
+                    rules={[{
+                        required: true,
+                        message: 'Please input your password!',
+                    },
+                    { min: 3, message: 'Mật khẩu phải có ít nhất 3 ký tự' }
+                    ]}
                 >
                     <Input.Password />
                 </Form.Item>
                 <Form.Item
                     label="Phone number"
                     name="phonenumber"
-                // rules={[{ required: true, message: 'Please input your username!' }]}
+                    rules={[
+                        { min: 0, message: 'Số phải >= 0' },
+                        { max: 10, message: 'Số phải <= 10' },
+                        { pattern: /^0[0-9]{9}$/, message: 'Số điện thoại phải có 10 chữ số, bắt đầu bằng 0!' }
+                    ]}
                 >
                     <Input />
                 </Form.Item>
@@ -56,6 +88,14 @@ const RegisterPage = () => {
                     <Button type="primary" htmlType="submit">
                         Register
                     </Button>
+                    <Button onClick={() => {
+                        // dùng để lấy giá trị của tất cả các input trong form
+                        form1.setFieldsValue({
+                            username: 'test',
+                            email: "test"
+                        })
+                        form1.getFieldValue("username");
+                    }}> Test </Button>
                 </Form.Item>
             </div >
         </Form>
